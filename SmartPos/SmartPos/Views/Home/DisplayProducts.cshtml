@@ -36,6 +36,7 @@
                         settings.ColumnSetting().ColumnKey("Sn").ReadOnly(true);
                         settings.ColumnSetting().ColumnKey("Qty").Required(true);
                         settings.ColumnSetting().ColumnKey("Price").Required(true);
+                        
                     })
                     .EditMode(GridEditMode.Row).EnableDeleteRow(true).EnableAddRow(true)
                     .StartEditTriggers(GridStartEditTriggers.DblClick).ShowDoneCancelButtons(true)
@@ -47,6 +48,7 @@
                     settings.ColumnSetting().ColumnKey("Sn").AllowFiltering(false);
                     settings.ColumnSetting().ColumnKey("Qty").AllowFiltering(false);
                     settings.ColumnSetting().ColumnKey("Price").AllowFiltering(false);
+                    //settings.ColumnSetting().ColumnKey("Pid").CustomConditions()
                 });
 
             })
