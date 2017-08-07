@@ -36,7 +36,7 @@ namespace SmartPos.Controllers
                 {
                     var prod = session.Query<Product>().FirstOrDefault(x => x.Pid == product.Pid);
                     if (prod != null)
-                    {
+                    {//aq
                         prod.Description = product.Description;
                         prod.Price = product.Price;
                         prod.Qty += product.Qty;
