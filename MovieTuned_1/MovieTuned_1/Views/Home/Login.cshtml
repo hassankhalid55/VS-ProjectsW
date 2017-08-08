@@ -1,0 +1,85 @@
+﻿@model MovieTuned_1.Models.User
+@{
+    ViewBag.title = "MovieTuned - Sign In";
+    Layout = "/Views/Shared/_MyLayout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#submit-button").click(function (ev) {
+            ev.preventDefault();
+
+            var name = $("#UserName").val();
+            var password = $("#Password").val();
+
+            $.getJSON("/Accounts/Verify?UserName=" + name + "&Password=" + password, function (result) {
+                if (result.status == "true") {
+                    $("#signin-form").submit();
+                }
+                else{
+                    $("#login-error-modal").modal("show");
+                } 
+            });
+        });
+    });
+</script>
+
+<div id="content" style="margin-top:75px;margin-bottom:75px">
+    <div class="panel panel-default" style="width:350px;margin:auto;height:400px">
+
+        <div class="panel-heading">
+            <h4 style="text-align:center">Sign In</h4>
+        </div>
+
+        <div class="panel-body">
+            @*<form id="signin-form" method="post" action="/Accounts/Login" >
+                <div class="form-group">
+                    <label for="exampleInputEmail1">User Name*</label>
+                    <input type="text" class="form-control" id="UserName" name="UserName" required placeholder="User Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password*</label>
+                    <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
+                </div>
+                <button id="submit-button" class="btn btn-info" style="margin-top:15px;margin-bottom:15px;width:318px">Login</button>
+            </form>*@
+
+            @using (Html.BeginForm("Login", "Accounts", FormMethod.Post, new {id = "signin-form" }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, "User Name")
+                    @Html.TextBoxFor(model => model.UserName, new { id = "UserName", @class = "form-control", type = "text", placeholder = "User Name" })
+                </div>
+                
+
+                <div class="form-group" >
+                    @Html.LabelFor(model => model.Password, "Password")
+                    @Html.TextBoxFor(model => model.Password, new { id = "Password", @class = "form-control", type = "password", placeholder = "Password" })
+                </div>
+               
+                <button id="submit-button" type="submit" class="btn btn-info" style="margin-top:15px;margin-bottom:15px;width:318px">Login</button>
+
+            }
+
+        </div>
+
+        <div class="panel-footer">
+            <h6 class="panel-heading" style="text-align:center">Not a member?</h6>
+            <button id="signup-button" class="btn btn-primary" style="margin-bottom:15px;width:318px" onclick="window.location.href='/Home/SignUp'">Sign Up Now</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="login-error-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header" style="color:white ;background-color:red ;border-radius:5px">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="error-message">Invalid Credentials&hellip;</p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>

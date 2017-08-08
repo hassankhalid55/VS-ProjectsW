@@ -94,14 +94,14 @@
             .DataBind()
             .Render())
 
-            <div style="margin-top:20px"></div>
+            <div style="margin-top:5px"></div>
+
+            <h4 id="totalAmount">Total Amount: Rs. 0</h4>
 
             <div class="row col-lg-14" style="margin-left:2px">
                 <input style="padding-left:1px" id="customer_name" type="text" placeholder="Customer Name" />
                 <input style="margin-left:5px" type="button" value="Save Order" id="btn_save_order" />
             </div>
-
-            <input type="button" id="bt1"/>
 
 
         </div>
@@ -139,6 +139,7 @@
     //$("#selectionDiv").css("visibility", "visible");
     //$("#igGrid1_container_loading").css("display", "none");
     var orderItemSn = 1;
+    var totalAmount = 0;
     var qty_input = $("#input_qty");
     $("#igGrid").on("iggridselectionrowselectionchanged", function () { //do something when iggrid's row is selected
         var selectedRow = $("#igGrid").igGridSelection('selectedRow');  //get the selected row
@@ -177,6 +178,7 @@
 
     //add selected product in order grid on button click
     var btn_add_item = $("#btn_add_item");
+    
     btn_add_item.click(function () {
         var selectedRow = $("#igGrid").igGridSelection('selectedRow');  //get the selected row
         var product = $("#igGrid").data('igGrid').dataSource.dataView()[selectedRow.index]; //get data of selected row
@@ -204,6 +206,9 @@
 
                 $("#igGrid1").igGridUpdating("addRow", item); //add salesItem into Order Grid
                 orderItemSn += 1;
+                totalAmount += item["Total"];
+                console.log("Total Amount: Rs. " + totalAmount);
+                $("#totalAmount").text("Total Amount: Rs. " + totalAmount);
                 updateProductQtOnGrid(product, qty_input.val(), product["Sn"]);
             }
         }
@@ -226,7 +231,7 @@
         }
         //$.post("/Home/getDnC", { customerName: customerName.val(), orderDate: "@DateTime.UtcNow" });
         console.log("@DateTime.Now");
-        $.getJSON("/Home/getDnC?customerName=" + customerName.val(), function (result) {
+        $.getJSON("/Home/getDnC?customerName=" + customerName.val() + "&totalAmount=" + totalAmount, function (result) {
             if (result.status == "true") {
                 $('#igGrid').igGrid('saveChanges');
                 $('#igGrid1').igGrid('saveChanges');

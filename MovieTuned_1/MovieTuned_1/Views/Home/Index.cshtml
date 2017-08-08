@@ -1,0 +1,97 @@
+﻿@model List<MovieTuned_1.Models.Movie>
+@{ 
+    ViewBag.title = "MovieTuned - Home";
+    if (Session["UserName"] != null)
+    {
+        if (Session["UserType"].ToString() == "user")
+        {
+            Layout = "/Views/Shared/_UserLoggedIn.cshtml";
+        }
+        else 
+        {
+            Layout = "/Views/Shared/_AdminLayout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "/Views/Shared/_MyLayout.cshtml";
+    }
+}
+
+<div id="wrapper" class="container-fluid">
+    <div id="content" style="position:relative;right:10px">
+        <div style="margin-top:0px"></div>
+        <div class="page-header container text-center">
+            <h3 class="color-primary-light"><b>Trending Now</b></h3>
+        </div>
+
+        <!-- Trending now, movies, see all -->
+        <div id="movies" class="container">
+            <div class="row" style="margin-top:-10px">
+                <div class="col-lg-1 col-sm-1 color-primary-light"><h4><b>Movies</b></h4></div>
+                <div class="col-lg-1 col-sm-1
+                 col-md-2 col-md-offset-9 col-lg-offset-10 col-sm-offset-10 col-xs-offset-10 color-primary-light"><h4><b>See All</b></h4></div>
+            </div>
+
+            <!--Movies Content-->
+        </div>
+
+        <div class="row container" id="movies-content" style="margin-left:auto;margin-right:auto">
+
+            @for (int c=0;c<4;c++)
+            {
+                var media = Model[c];
+                <div class="col-lg-3 col-sm-5 col-xs-10">
+                    <div class="text-center">
+                        <a class="row" href="/Home/MovieInfo?Name=@media.Title">
+                            <img src="@media.Cover" class="movie-thumbnail" />
+                        </a>
+                        <h5 class="movie-name overflow-ellipsis" name="Title">@media.Title</h5>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!-- Movies end -->
+        <!-- Tv Shows -->
+        <div id="tv-shows" class="container">
+            <div class="page-header container text-center" style="margin-top:10px"></div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-lg-2 col-sm-1 color-primary-light">
+                    <h4>
+                        <b>
+                            TV Shows
+                        </b>
+                    </h4>
+                </div>
+                <div class="col-lg-1 col-sm-1
+                 col-md-2 col-md-offset-9 col-lg-offset-9 col-sm-offset-10 col-xs-offset-9 color-primary-light">
+                    <h4>
+                        <b>
+                            See All
+                        </b>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row container" id="movies-content" style="margin-left:auto;margin-right:auto">
+
+            @foreach (var c in Model)
+            {
+                <div class="col-lg-3 col-sm-5 col-xs-10">
+                    <div class="text-center">
+                        <a class="row" href="/Home/MovieInfo?Name=@c.Title">
+                            <img src="@c.Cover" class="movie-thumbnail" />
+                        </a>
+                        <h5 class="movie-name overflow-ellipsis" name="Title">@c.Title</h5>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <!-- Tv shows end -->
+</div>

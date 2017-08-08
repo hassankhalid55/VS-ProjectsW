@@ -1,0 +1,99 @@
+﻿.color-primary-light{
+    color:#F5F5F5;
+}
+
+.movie-thumbnail{
+    height:300px;
+    width:200px;
+    border:solid 5px;
+    border-radius:5px;
+    border-color:white;
+}
+
+.overflow-ellipsis{
+    /*text-align:center;*/
+    width:200px;
+    /*display:block;*/
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+ #page-footer-wrapper {
+   background-color: black;
+ }
+
+ #footer{
+     background-color: black;
+     bottom: 0px;
+     height: 50px;
+     /*left: 0;*/
+     position: absolute;
+     /*right: 0;*/
+     width:100%
+ }
+
+/*footer {*/
+    /*position: relative;*/
+    /*!*left: 0;*!*/
+    /*!*bottom: 0;*!*/
+    /*height: 50px;*/
+    /*width: 100%;*/
+    /*overflow:hidden;*/
+/*}*/
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+
+.crew-wrapper-heading {
+    width:90px;
+    display:inline;
+    color:limegreen;
+}
+
+.creWrapper-val{
+    font-size:15px;
+    font-weight: 100;
+    display:inline;
+    color:#F5F5F5;
+}
+
+.color-primary-grey{
+    color:lightgrey;
+}
+
+.movie-name{
+    color:white;
+    margin-top:-5px;
+    /*text-align:center;*/
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.lr-auto-margin{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.watchlist-thumbnail{
+    height:240px;
+    width:160px;
+    border:solid 5px;
+    border-radius:5px;
+    border-color:white;
+}
+
+#watchlist-buttons{
+    margin-top:30px;
+}
+
+#watchlist-cast-font{
+    color:#808080;
+    font-size:15px;
+}

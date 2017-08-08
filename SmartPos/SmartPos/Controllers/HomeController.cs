@@ -121,6 +121,7 @@ product.Pid = stocks.ProductId
         {
             string customerName = Session["customerName"].ToString();
             DateTime orderDate = DateTime.Parse(Session["orderDate"].ToString());
+            float totalAmount = float.Parse(Session["totalAmount"].ToString());
             //Session["customerName"] = null;
             //Session["orderDate"] = null;
             string orderId = orderDate.ToString("yyMMddHHmmss");
@@ -135,7 +136,7 @@ product.Pid = stocks.ProductId
             order.Oid = long.Parse(orderId);
             order.Date = DateTime.Parse(orderDate.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             order.Cid = customer.Cid;
-            order.GrossTotal = 120;
+            order.GrossTotal = totalAmount;
 
             //create salesItem
             SalesItem sItem = new SalesItem();
@@ -161,7 +162,7 @@ product.Pid = stocks.ProductId
                 }
             }
 
-            //Save data from Order grid into sales item table
+            //Save data from Order grid into salesitem table
             ViewData["GenerateCompactJSONResponse"] = false;
             GridModel m = new GridModel();
             List<Transaction<ExtendedSalesItem>> salesItemTransaction = m.LoadTransactions<ExtendedSalesItem>(HttpContext.Request.Form["ig_transactions"]);
@@ -234,13 +235,14 @@ product.Pid = stocks.ProductId
         }
 
         
-        public JsonResult getDnC(string customerName)
+        public JsonResult getDnC(string customerName, string totalAmount)
         {
-            if (customerName != null)
+            if (customerName != null && totalAmount != null)
             {
                 Session.Clear();
                 Session["customerName"] = customerName;
                 Session["orderDate"] = DateTime.UtcNow;
+                Session["totalAmount"] = totalAmount;
                 return Json(new { status = "true" }, JsonRequestBehavior.AllowGet);
             }
             else

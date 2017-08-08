@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.title = Session["UserName"] + "'s " + "Watchlist";
+    if (Session["UserName"] != null)
+    {
+        Layout = "/Views/Shared/_UserLoggedIn.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/_MyLayout.cshtml";
+    }
+}
+
+<div id="content" class="container lr-auto-margin" style="margin-top:50px ; width:600px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                @ViewBag.title
+            </h3>
+        </div>
+        <div class="panel-body">
+            @{ 
+                int counter = 0;
+            }
+            @foreach (var c in ViewBag.Watchlist)
+            {
+                counter++;
+                <div id="list-item" class="row">
+                    <div class="col-lg-5">
+                        <img class="watchlist-thumbnail" src="@c.Cover" />
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- Title-->
+                        <div id="movie-title-date-rating">
+                            <h4 class="overflow-ellipsis">
+                             @counter. @c.Title
+                            </h4>
+                            <h3 id="year">
+                                @c.Year
+                                <span id="rating" style="margin-left: 30px">
+                                    @c.Rating
+                                    <span id="star-icon" style="color: goldenrod;" class="glyphicon glyphicon-star"></span>
+                                </span>
+                            </h3>
+                            <h4 id="genre" style="margin-bottom:0;margin-top: 0">
+                                @c.Genre
+                            </h4>
+                        </div>
+
+                        <!-- Cast -->
+                        <div id="cast" style="margin-top: 5px">
+                            <h4 class="crew-wrapper-heading">
+                                Cast: <span id="watchlist-cast-font">@c.Cast</span>
+                            </h4>
+                        </div>
+                        <div id="watchlist-buttons">
+                            <a class="btn btn-primary" href="/Home/MovieInfo?Name=@c.Title&isInWatchlist=true">Jump To Info</a>
+                            <a class="btn btn-warning">Remove From Watchlist</a>
+                        </div>
+
+
+                    </div>
+                </div>
+                <hr style="border-color:#808080" />
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.title</title>
+
+    @* Required for Header and footer *@
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="/SearchBarStyle.css" />
+    <script src="~/scripts/jquery-1.9.1.min.js"></script>
+    <!--<script type="text/javascript" src="/lightboxPlayer/jquery.js"></script>-->
+    <script type="text/javascript" src="/lightboxPlayer/html5lightbox.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+            var pageName = '@ViewBag.title';
+            //alert(pageName);
+            if(pageName == "MovieTuned - Home"){
+                $("#home").addClass("active");
+            }
+
+            $("#moviesMenu").on("mouseover", function () {
+                $("#mmList").show();
+            });
+
+            $("#moviesMenu").on("mouseout", function () {
+                $("#mmList").hide();
+            });
+
+            $("#showsMenu").on("mouseover", function () {
+                $("#showsList").show();
+            });
+
+            $("#showsMenu").on("mouseout", function () {
+                $("#showsList").hide();
+            });
+
+            //for search bar
+            $("#searchBar").hide();
+            var visibile = false;
+
+            $("#searchButton").on("click", function () {
+                //alert(pageName);
+                //alert("inside function");
+                if (visibile == false) {
+                    $("#searchBar").show();
+                    visibile = true;
+                }
+                else if (visibile == true) {
+                    $("#searchBar").hide();
+                    visibile = false;
+                }
+            });
+
+            $("#goButton").on("click", function () {
+                alert("Hello");
+                $("#searchBar").hide();
+            });
+
+            $(".modal-footer").attr("color", "#565656");
+
+            $("#login").on("click", function () {
+                $("#login-Modal").modal();
+            });
+
+            $("#signup").on("click", function () {
+                $("#login-Modal").modal("hide");
+                $("#SignUp-Modal").modal();
+            });
+
+
+        })
+    </script>
+
+    @*
+        FOR INDEX PAGE
+    *@
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .carousel-inner img {
+            width: 100%; /* Set width to 100% */
+            margin: auto;
+            min-height: 200px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#moviesMenu").on("mouseover", function () {
+                $("#mmList").show();
+            });
+
+            $("#moviesMenu").on("mouseout", function () {
+                $("#mmList").hide();
+            });
+
+            $("#showsMenu").on("mouseover", function () {
+                $("#showsList").show();
+            });
+
+            $("#showsMenu").on("mouseout", function () {
+                $("#showsList").hide();
+            });
+
+            //for search bar
+            $("#searchBar").hide();
+            var visibile = false;
+
+            $("#searchButton").on("click", function () {
+                //alert("inside function");
+                if (visibile == false) {
+                    $("#searchBar").show();
+                    visibile = true;
+                }
+                else if (visibile == true) {
+                    $("#searchBar").hide();
+                    visibile = false;
+                }
+            });
+
+            $("#goButton").on("click", function () {
+                alert("Hello");
+                $("#searchBar").hide();
+            });
+
+            //$(".modal-footer").attr("color", "#565656");
+
+            //$("#login").on("click", function () {
+            //    $("#login-Modal").modal();
+            //});
+
+            //$("#signup").on("click", function () {
+            //    $("#login-Modal").modal("hide");
+            //    $("#SignUp-Modal").modal();
+            //});
+
+
+        })
+    </script>
+
+    @*
+        FOR INDEX PAGE END
+    *@
+
+</head>
+<body style="background:url(/Media/blur-1.jpg); background-attachment:fixed; background-size:cover">
+    <div id="header" style="margin-bottom:30px">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+
+                <!-- For Mobile View -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Home/Index">MovieTuned</a>
+                </div>
+
+                <!-- Left Portion Of Navbar -->
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li id="home"><a href="/Home/Index">Home</a></li>
+
+                        <li class="dropdown" id="moviesMenu">
+                            <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                               style="cursor:pointer">
+                                Movies
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="mmList" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="latest.html">Latest</a></li>
+                                <li><a href="#">Upcoming</a></li>
+                                <li><a href="topRated.html">Top Rated</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown" id="showsMenu">
+                            <a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                               style="cursor:pointer">
+                                Tv Shows
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="showsList" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><a href="#">Latest</a></li>
+                                <li><a href="#">Upcoming</a></li>
+                                <li><a href="#">Top Rated</a></li>
+                            </ul>
+                        </li>
+
+                        <li id="watchlist">
+                            <a href="#">Watchlist</a>
+                        </li>
+
+                        <li><a href="#">About</a></li>
+                    </ul>
+
+                    <!-- Search And Login -->
+                    <ul id="right-navbar" class="nav navbar-nav navbar-right">
+                        <li class="dropdown" id="user-menu">
+                            <a class="dropdown-toggle" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                               style="cursor:pointer">
+                                <span class="glyphicon glyphicon-user">
+                                    @Session["UserName"]
+                                    <span class="caret"></span>
+                                </span>
+                            </a>
+                            <ul id="showsList" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><a href="/Accounts/AdminPanel">Admin Panel</a></li>
+                                <li><a href="/Accounts/Logout">Log Out</a></li>
+                            </ul>
+                        </li>
+                        <li style="cursor:pointer"><a><span class="glyphicon glyphicon-search" id="searchButton"> Search</span></a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- Search Bar -->
+
+        </nav>
+        <div id="searchBar" style="position:absolute;width:400px;top:52px; right:0;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." style="width:350px">
+                <button class="btn btn-success" type="button" id="goButton"> Go!</button>
+
+            </div><!-- /input-group -->
+        </div>
+
+    </div>
+
+    <div id="content" class="container-fluid">
+        @RenderBody()
+    </div>
+    <div>
+        <footer style="background-color:black; margin-bottom:0px">
+            <h5 class="color-primary-light">
+                <span class="glyphicon glyphicon-copyright-mark">
+
+                </span>
+                Copyrights 2016
+            </h5>
+        </footer>
+    </div>
+</body>
+</html>

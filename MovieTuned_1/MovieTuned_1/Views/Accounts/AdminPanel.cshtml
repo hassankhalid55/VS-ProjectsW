@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.title = "MovieTuned - BackDoor";
+    if (Session["UserName"] != null)
+    {
+        if (ViewBag.UserType == "user")
+        {
+            Layout = "/Views/Shared/_UserLoggedIn.cshtml";
+        }
+        else
+        {
+            Layout = "/Views/Shared/_AdminLayout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "/Views/Shared/_MyLayout.cshtml";
+    }
+}
+<script>
+    $(document).ready(function () {
+        $("#add-movie").click(function () {
+            var movie_panel = $("#add-movie-panel");
+                movie_panel.show();
+        });
+
+        $("#add-tv-show").click(function () {
+            //var tvShow_panel = $("#add-movie-panel");
+            //if (movie_panel.hidden()) {
+            //    movie_panel.show();
+            //}
+            $("#add-movie-panel").hide();
+        });
+    });
+</script>
+
+@{
+    if (Session["UserName"] != null)
+    {
+
+        <div id="content" style="margin-top:50px;margin-bottom:30px">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" style="margin-bottom:30px; border:none; margin-left:auto;margin-right:auto;width:415px">
+                <li id="movie-tab" role="presentation" class="active" style="margin-right:10px" >
+                    <a href="#movie" class="btn btn-primary" style="width:200px;border-radius:5px 5px" aria-controls="movie" role="tab" data-toggle="tab">
+                        Add Movie
+                    </a>
+                </li>
+                <li id="tv-show-tab" role="presentation">
+                    <a href="#tv-show" class="btn btn-primary" style="width:200px;border-radius:5px 5px" aria-controls="tv-show" role="tab" data-toggle="tab">
+                        Add TV Show
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="movie">
+                    <div id="add-movie-panel" class="panel panel-default" style="width:350px;margin:auto;height:auto">
+
+                        <div class="panel-heading">
+                            <h4 style="text-align:center">Upload Movie</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <form id="signup-form" method="post" action="/Accounts/AddData" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Movie Title*</label>
+                                    <input type="text" class="form-control" id="Title" name="Title" placeholder="Movie Title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Year</label>
+                                    <input type="text" class="form-control" id="Year" name="Year" placeholder="e.g: 2016">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Rating</label>
+                                    <input type="text" class="form-control" id="Rating" name="Rating" placeholder="e.g: 8.8">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Genre</label>
+                                    <input type="text" class="form-control" id="Genre" name="Genre" placeholder="e.g: Fantasy">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Writers</label>
+                                    <input type="text" class="form-control" id="Writers" name="Writers" placeholder="comma separated writers">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Directors</label>
+                                    <input type="text" class="form-control" id="Directors" name="Directors" placeholder="comma separated directors">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Cast</label>
+                                    <input type="text" class="form-control" id="Cast" name="Cast" placeholder="comma separated cast">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Synopsis</label>
+                                    <input type="text" class="form-control" id="Synopsis" name="Synopsis" placeholder="Brief Story Line">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Cover</label>
+                                    <input type="file" id="Cover" name="Cover" placeholder="e.g: Fantasy">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Trailer Address</label>
+                                    <input type="text" class="form-control" id="Trailer" name="Trailer" placeholder="Youtube Url">
+                                </div>
+                                <button type="submit" id="signup-submit-button" class="btn btn-info" style="margin-top:15px;margin-bottom:15px;width:318px">Upload Movie</button>
+                            </form>
+                        </div>
+
+                        @*<div class="panel-footer">
+                <h6 class="panel-heading" style="text-align:center">Already a member?</h6>
+                <button id="login-button" class="btn btn-primary" style="margin-bottom:15px;width:318px" onclick="window.location.href='/Home/Login'">Sign In</button>
+            </div>*@
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tv-show">
+                    <div id="add-tvShow-panel" class="panel panel-default" style="width:350px;margin:auto;height:auto">
+
+                        <div class="panel-heading">
+                            <h4 style="text-align:center">Add TV Show</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <form id="signup-form" method="post" action="/Accounts/AddTVShow" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Title*</label>
+                                    <input type="text" class="form-control" id="Title" name="Title" placeholder="Movie Title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Year</label>
+                                    <input type="text" class="form-control" id="Year" name="Year" placeholder="e.g: 2016">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Rating</label>
+                                    <input type="text" class="form-control" id="Rating" name="Rating" placeholder="e.g: 8.8">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Genre</label>
+                                    <input type="text" class="form-control" id="Genre" name="Genre" placeholder="e.g: Fantasy">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Writers</label>
+                                    <input type="text" class="form-control" id="Writers" name="Writers" placeholder="comma separated writers">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Directors</label>
+                                    <input type="text" class="form-control" id="Directors" name="Directors" placeholder="comma separated directors">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Cast</label>
+                                    <input type="text" class="form-control" id="Cast" name="Cast" placeholder="comma separated cast">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Synopsis</label>
+                                    <input type="text" class="form-control" id="Synopsis" name="Synopsis" placeholder="Brief Story Line">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">First Episode Date</label>
+                                    <input type="date" class="form-control" id="First_Episode_Date" name="First_Episode_date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">No Of Seasons</label>
+                                    <input type="text" class="form-control" id="Seasons_Count" name="Seasons_Count">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Cover</label>
+                                    <input type="file" id="Cover" name="Cover" placeholder="e.g: Fantasy">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Trailer Address</label>
+                                    <input type="text" class="form-control" id="Trailer" name="Trailer" placeholder="Youtube Url">
+                                </div>
+                                <button type="submit" id="signup-submit-button" class="btn btn-info" style="margin-top:15px;margin-bottom:15px;width:318px">Add TVShow</button>
+                            </form>
+                        </div>
+
+                        @*<div class="panel-footer">
+                <h6 class="panel-heading" style="text-align:center">Already a member?</h6>
+                <button id="login-button" class="btn btn-primary" style="margin-bottom:15px;width:318px" onclick="window.location.href='/Home/Login'">Sign In</button>
+            </div>*@
+                    </div>
+                </div>
+            
+
+        </div>
+
+         </div>
+    }
+}
+
+

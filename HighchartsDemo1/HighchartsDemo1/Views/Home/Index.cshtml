@@ -1,0 +1,152 @@
+﻿@*@model IEnumerable<HighchartsDemo1.Models.Sales>*@
+@model List<HighchartsDemo1.Models.Sales>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sales graph</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sales_count)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sales_count)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+<div id="container" style="width:100%; height:400px"></div>
+
+<script>
+    $(function () {
+        var hChart = new Highcharts.Chart('container', getChartOptions());
+
+        function pushDataIntoSeries() {
+            alert("inside push");
+        }
+    });
+
+    function getChartOptions() {
+        //alert("set options");
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Sales Trends'
+            },
+            xAxis: {
+                title: {
+                    text: 'Years'
+                },
+                type: 'DateTime',
+                tickInterval: 1
+                //categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Total Sales'
+                },
+                type: 'Linear'
+                //min: 10,
+                //max: 20
+            },
+            series: [
+
+            ],
+            plotOptions:{
+                series:{
+                    pointStart:2010
+                }
+            }
+        }
+
+        @{
+            List<int> pakSales = new List<int>();
+            List<int> indSales = new List<int>();
+            List<int> usaSales = new List<int>();
+            foreach (var sale in Model)
+            {
+                if (sale.Country == "pak")
+                {
+                    pakSales.Add(sale.Sales_count);
+
+                }
+                else if (sale.Country == "usa")
+                {
+                    usaSales.Add(sale.Sales_count);
+                }
+                else if(sale.Country == "ind")
+                {
+                    indSales.Add(sale.Sales_count);
+                }
+            }
+
+            List<int[]> sales = new List<int[]>();
+            int[] psales = pakSales.ToArray();
+            int[] isales = indSales.ToArray();
+            int[] usales = usaSales.ToArray();
+            sales.Add(psales);
+            sales.Add(isales);
+            sales.Add(usales);
+
+            foreach(var s in sales)
+            {
+                <text>
+        var arr = @Html.Raw(Json.Encode(s));
+        //alert(arr);
+        options.series.push({
+            data: arr
+        })
+
+            </text>
+            }
+
+
+        }
+
+        return options;
+    }
+
+</script>
+
+
+
+
+

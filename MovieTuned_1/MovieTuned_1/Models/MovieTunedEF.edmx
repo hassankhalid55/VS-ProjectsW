@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mtdbModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Title" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+          <Property Name="Rating" Type="varchar" MaxLength="50" />
+          <Property Name="Genre" Type="varchar" MaxLength="300" />
+          <Property Name="Writers" Type="varchar(max)" />
+          <Property Name="Directors" Type="varchar(max)" />
+          <Property Name="Cast" Type="varchar(max)" />
+          <Property Name="Synopsis" Type="varchar(max)" />
+          <Property Name="Cover" Type="varchar(max)" />
+          <Property Name="Trailer" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TvShows">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Title" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+          <Property Name="Rating" Type="varchar" MaxLength="50" />
+          <Property Name="Genre" Type="varchar" MaxLength="300" />
+          <Property Name="Writers" Type="varchar(max)" />
+          <Property Name="Directors" Type="varchar(max)" />
+          <Property Name="Cast" Type="varchar(max)" />
+          <Property Name="Synopsis" Type="varchar(max)" />
+          <Property Name="Cover" Type="varchar(max)" />
+          <Property Name="Trailer" Type="varchar(max)" />
+          <Property Name="Seasons_Count" Type="int" />
+          <Property Name="First_Episode_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Watchlists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MovieTitle" Type="varchar" MaxLength="300" />
+          <Property Name="TVShow" Type="varchar" MaxLength="300" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Watchlists_ToMovies">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
+          <End Role="Watchlists" Type="Self.Watchlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="Title" />
+            </Principal>
+            <Dependent Role="Watchlists">
+              <PropertyRef Name="MovieTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Watchlists_ToTVShows">
+          <End Role="TvShows" Type="Self.TvShows" Multiplicity="0..1" />
+          <End Role="Watchlists" Type="Self.Watchlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TvShows">
+              <PropertyRef Name="Title" />
+            </Principal>
+            <Dependent Role="Watchlists">
+              <PropertyRef Name="TVShow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Watchlists_ToUsers">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Watchlists" Type="Self.Watchlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Watchlists">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mtdbModel1StoreContainer">
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TvShows" EntityType="Self.TvShows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Watchlists" EntityType="Self.Watchlists" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Watchlists_ToMovies" Association="Self.FK_Watchlists_ToMovies">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="Watchlists" EntitySet="Watchlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Watchlists_ToTVShows" Association="Self.FK_Watchlists_ToTVShows">
+            <End Role="TvShows" EntitySet="TvShows" />
+            <End Role="Watchlists" EntitySet="Watchlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Watchlists_ToUsers" Association="Self.FK_Watchlists_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Watchlists" EntitySet="Watchlists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mtdbModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Genre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Writers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Directors" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cast" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cover" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Trailer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Watchlists" Relationship="Self.FK_Watchlists_ToMovies" FromRole="Movies" ToRole="Watchlists" />
+        </EntityType>
+        <EntityType Name="TvShow">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Genre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Writers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Directors" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cast" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cover" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Trailer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Seasons_Count" Type="Int32" />
+          <Property Name="First_Episode_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Watchlists" Relationship="Self.FK_Watchlists_ToTVShows" FromRole="TvShows" ToRole="Watchlists" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Watchlists" Relationship="Self.FK_Watchlists_ToUsers" FromRole="Users" ToRole="Watchlists" />
+        </EntityType>
+        <EntityType Name="Watchlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MovieTitle" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TVShow" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Movy" Relationship="Self.FK_Watchlists_ToMovies" FromRole="Watchlists" ToRole="Movies" />
+          <NavigationProperty Name="TvShow1" Relationship="Self.FK_Watchlists_ToTVShows" FromRole="Watchlists" ToRole="TvShows" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Watchlists_ToUsers" FromRole="Watchlists" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Watchlists_ToMovies">
+          <End Role="Movies" Type="mtdbModel1.Movie" Multiplicity="0..1" />
+          <End Role="Watchlists" Type="Self.Watchlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="Title" />
+            </Principal>
+            <Dependent Role="Watchlists">
+              <PropertyRef Name="MovieTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Watchlists_ToTVShows">
+          <End Role="TvShows" Type="Self.TvShow" Multiplicity="0..1" />
+          <End Role="Watchlists" Type="Self.Watchlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TvShows">
+              <PropertyRef Name="Title" />
+            </Principal>
+            <Dependent Role="Watchlists">
+              <PropertyRef Name="TVShow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Watchlists_ToUsers">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Watchlists" Type="Self.Watchlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Watchlists">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mtdbEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Movies1" EntityType="mtdbModel1.Movie" />
+          <EntitySet Name="TvShows" EntityType="Self.TvShow" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Watchlists" EntityType="Self.Watchlist" />
+          <AssociationSet Name="FK_Watchlists_ToMovies" Association="Self.FK_Watchlists_ToMovies">
+            <End Role="Movies" EntitySet="Movies1" />
+            <End Role="Watchlists" EntitySet="Watchlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Watchlists_ToTVShows" Association="Self.FK_Watchlists_ToTVShows">
+            <End Role="TvShows" EntitySet="TvShows" />
+            <End Role="Watchlists" EntitySet="Watchlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Watchlists_ToUsers" Association="Self.FK_Watchlists_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Watchlists" EntitySet="Watchlists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mtdbModel1StoreContainer" CdmEntityContainer="mtdbEntities3">
+          <EntitySetMapping Name="Movies1">
+            <EntityTypeMapping TypeName="mtdbModel1.Movie">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Writers" ColumnName="Writers" />
+                <ScalarProperty Name="Directors" ColumnName="Directors" />
+                <ScalarProperty Name="Cast" ColumnName="Cast" />
+                <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Trailer" ColumnName="Trailer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TvShows">
+            <EntityTypeMapping TypeName="mtdbModel1.TvShow">
+              <MappingFragment StoreEntitySet="TvShows">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Writers" ColumnName="Writers" />
+                <ScalarProperty Name="Directors" ColumnName="Directors" />
+                <ScalarProperty Name="Cast" ColumnName="Cast" />
+                <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Trailer" ColumnName="Trailer" />
+                <ScalarProperty Name="Seasons_Count" ColumnName="Seasons_Count" />
+                <ScalarProperty Name="First_Episode_Date" ColumnName="First_Episode_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="mtdbModel1.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Watchlists">
+            <EntityTypeMapping TypeName="mtdbModel1.Watchlist">
+              <MappingFragment StoreEntitySet="Watchlists">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
+                <ScalarProperty Name="TVShow" ColumnName="TVShow" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

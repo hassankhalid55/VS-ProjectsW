@@ -1,0 +1,90 @@
+﻿@model MovieTuned_1.Models.Movie
+@{
+    ViewBag.title = Model.Title;
+    if (Session["UserName"] != null)
+    {
+        if (Session["UserType"].ToString() == "user")
+        {
+            Layout = "/Views/Shared/_UserLoggedIn.cshtml";
+        }
+        else
+        {
+            Layout = "/Views/Shared/_AdminLayout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "/Views/Shared/_MyLayout.cshtml";
+    }
+}
+
+<div id="content" style="margin-top:50px;margin-bottom:50px">
+    <div style="margin-top: 20px"></div>
+    <div class="container" style="width:auto;margin-left:20%;margin-right: 20%">
+        <div id="movie-wrapper1" class="row">
+            <div id="movie-cover" class="col-lg-4">
+                <img class="movie-thumbnail" src="@Model.Cover">
+            </div>
+
+            <div id="movie-info-wrapper" class="col-lg-7 col-lg-offset-1">
+                <div id="movie-title-date-rating">
+                    <h1 class="color-primary-light">@Model.Title</h1>
+                    <div style="display: block;margin-bottom: 0" class="color-primary-light">
+                        <h3 id="year">
+                            @Model.Year
+                            <span id="rating" style="margin-left: 30px">
+                                @Model.Rating
+                                <span id="star-icon" style="color: goldenrod;" class="glyphicon glyphicon-star"></span>
+                            </span>
+                        </h3>
+                    </div>
+                    <h4 class="color-primary-light" id="genre" style="margin-bottom:0;margin-top: 0">
+                        @Model.Genre
+                    </h4>
+                </div>
+                <div id="crew-wrapper" class="color-primary-light" style="margin-top: 25px">
+                    <h4 class="crew-wrapper-heading">
+                        Writer(s): <span class="creWrapper-val">@Model.Writers</span>
+                    </h4>
+                    <div id="directors" style="margin-top: 5px">
+                        <h4 class="crew-wrapper-heading">
+                            Director(s): <span class="creWrapper-val">@Model.Directors</span>
+                        </h4>
+                    </div>
+                    <div id="cast" style="margin-top: 5px">
+                        <h4 class="crew-wrapper-heading">
+                            Cast: <span class="creWrapper-val">@Model.Cast</span>
+                        </h4>
+                    </div>
+                </div>
+
+                <div id="buttons" style="margin-top: 25px">
+                    <a href="@Model.Trailer" class="html5lightbox btn btn-success">
+                        Watch Trailer
+                    </a>
+                    @{
+                        if (ViewBag.InWatchlist == true)
+                        {
+                            <a class="btn btn-danger" style="margin-left: 5%" href="/Accounts/RemoveFromWatchlist?Title=@Model.Title">Remove From Watch List</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-warning" style="margin-left: 5%" href="/Accounts/AddToWatchlist?Title=@Model.Title">Add To Watch List</a>
+                        }
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div id="movie-wrapper2" class=" row">
+            <div class="page-header" style="margin-top: 10px; margin-bottom: -5px"></div>
+            <div id="movie-synopsis" class="col-lg-12">
+                <h3 class="color-primary-light"><b>Synopsis</b></h3>
+                <p id="synopsis-content" style="margin-left: 2%" class="color-primary-grey">
+                    @Model.Synopsis
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
