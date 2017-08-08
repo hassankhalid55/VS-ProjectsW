@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Highsoft.Web.Mvc.Charts;
 
 namespace SmartPos.Controllers
 {
@@ -11,6 +12,7 @@ namespace SmartPos.Controllers
         // GET: Analytics
         public ActionResult Dashboard()
         {
+            
             return View();
         }
     }

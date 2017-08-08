@@ -1,8 +1,81 @@
-﻿@model SmartPos.Models.Order
-
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Dashboard</h2>
+@*You need to add a reference to jQuery prior to referencing the highcharts javascript file*@
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="totalSales" style="height:400px; width:500px"></div>
+
+<script>
+    Highcharts.chart('totalSales', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Sales Trends of Last 7 Days'
+        },
+        subtitle: {
+            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+        },
+        xAxis: {
+            title: {
+                text: 'Date'
+            },
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            tickInterval: 24*60*60*1000
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Sales (Rupees)',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            //headerFormat: '<b>{series.name}</b>',
+            valueSuffix: ' rupees'
+        },
+        plotOptions: {
+            column: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        //legend: {
+        //    layout: 'vertical',
+        //    align: 'right',
+        //    verticalAlign: 'top',
+        //    x: -40,
+        //    y: 80,
+        //    floating: true,
+        //    borderWidth: 1,
+        //    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        //    shadow: true
+        //},
+        credits: {
+            enabled: false
+        },
+        series: [
+            {
+                name: totalSales,
+                data: [
+                    [Date.UTC(2017, 8, 3), 140],
+                    [Date.UTC(2017, 8, 4), 1000],
+                    [Date.UTC(2017, 8, 5), 2140]
+                ]
+            }
+        ]
+    });
+</script>
 

@@ -18,7 +18,7 @@ namespace HighchartsDemo1.Controllers
         {
             using (var session = NHibernateSession.OpenSession())
             {
-                //var llist = session.QueryOver<Sales>().List();
+                var llist = session.QueryOver<Sales>().List();
                 //var q = session.CreateCriteria<Sales>().Add(Expression.Where(x => x.Country == "pak");
                 //session.QueryOver<Sales>().Where(x => x.Country == "pak");
                 var mlist = session.QueryOver<CurrencyRate>().List();
@@ -45,7 +45,7 @@ namespace HighchartsDemo1.Controllers
 
                 var list4 = toCurrencyCodes.ToList();
 
-                return View(mlist);
+                return View(llist);
             }
         }
 
