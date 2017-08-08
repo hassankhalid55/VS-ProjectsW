@@ -293,6 +293,7 @@ product.Pid = stocks.ProductId
                                 StockOut stockOut = new StockOut();
                                 stockOut.Date = DateTime.UtcNow;
                                 stockOut.Pid = row.Pid;
+                                stockOut.Price = row.Price;
                                 stockOut.StockedOut = qtyStockedOut;
 
                                 session.Save(stockOut);

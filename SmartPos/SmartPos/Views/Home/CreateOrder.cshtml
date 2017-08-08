@@ -222,24 +222,21 @@
         var customerName = $("#customer_name");
         if (customerName.val() == "")
         {
-            customerName.val() = "na";
+            customerName.val("na");
         }
-        else {
-            //$.post("/Home/getDnC", { customerName: customerName.val(), orderDate: "@DateTime.UtcNow" });
-            console.log("@DateTime.Now");
-            $.getJSON("/Home/getDnC?customerName=" + customerName.val(), function (result) {
-                if (result.status == "true") {
-                    $('#igGrid').igGrid('saveChanges');
-                    $('#igGrid1').igGrid('saveChanges');
-                    alert("order saved");
-                    console.log("@DateTime.Now");
+        //$.post("/Home/getDnC", { customerName: customerName.val(), orderDate: "@DateTime.UtcNow" });
+        console.log("@DateTime.Now");
+        $.getJSON("/Home/getDnC?customerName=" + customerName.val(), function (result) {
+            if (result.status == "true") {
+                $('#igGrid').igGrid('saveChanges');
+                $('#igGrid1').igGrid('saveChanges');
+                alert("order saved");
+                console.log("@DateTime.Now");
 
-                }
-                else
-                    alert("there was a problem saving order");
-            });
-           
-        }
+            }
+            else
+                alert("there was a problem saving order");
+        });
 
     })
 
